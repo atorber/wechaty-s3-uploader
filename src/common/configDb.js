@@ -1,8 +1,8 @@
 import adb from '../lib/nedb.js'
-import { VikaBot } from '../vika.js'
+import { S3 } from '../s3.js'
 
 async function addVikaConfig(info) {
-  let vika = new VikaBot(info.token)
+  let vika = new S3(info.token)
   let vikaConfig = await vika.checkInit()
   console.debug(vikaConfig)
   info.vikaConfig = vikaConfig

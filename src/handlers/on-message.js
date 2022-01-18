@@ -1,7 +1,4 @@
-import { getVikaConfig } from '../common/configDb.js'
-import { S3 } from '../s3.js'
 import { Wechaty, ScanStatus, log, Message } from 'wechaty'
-import fs from 'fs'
 import Minio from 'minio'
 
 let msgList = []
@@ -12,12 +9,12 @@ function upload(file_payload) {
   // Instantiate the minio client with the endpoint
   // and access keys as shown below.
   var minioClient = new Minio.Client({
-    endPoint: 's3.bj.bcebos.com',
-    port: 80,
-    useSSL: false,
-    accessKey: '',
-    secretKey: '',
-    region: 'bj'
+    endPoint: process.env['S3_ENDPOINT'] || 's3.bj.bcebos.com',
+    port: process.env['S3_PORT'] || 80,
+    useSSL: process.env['S3_USESSL'] || false,
+    accessKey: process.env['S3_AK'] || '',
+    secretKey: process.env['S3_SK'] || '',
+    region: process.env['S3_REGION'] || 'bj'
   });
   // Upload a Buffer without content-type (default: 'application/octet-stream')
   minioClient.putObject('europetrip', file_payload.cloudPath

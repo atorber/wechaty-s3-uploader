@@ -17,7 +17,7 @@ function upload(file_payload) {
     region: process.env['S3_REGION'] || 'bj'
   });
   // Upload a Buffer without content-type (default: 'application/octet-stream')
-  minioClient.putObject('europetrip', file_payload.cloudPath
+  minioClient.putObject(process.env['S3_BUCKET'], file_payload.cloudPath
     , file_payload.fileContent, function (e) {
       if (e) {
         return console.log(e)
